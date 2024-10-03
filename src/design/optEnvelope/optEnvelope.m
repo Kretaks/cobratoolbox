@@ -1,9 +1,7 @@
 function [main, mid] = optEnvelope(model, desiredProduct, varargin)
 % optEnvelope uses MILP to find minimum active reactions and then finds 
-% smallest set of reactions in the pool of inactive reactions that offers  
-% same production envelope.
-% Algorith provides multiple ways to reinsert reactions - sequential,
-% MILP, GA(under construction)
+% smallest set of reactions in the pool of inactive reactions that offers same production envelope.
+% Algorith provides multiple ways to reinsert reactions - sequential, MILP, GA(under construction)
 %
 %   EXAMPLE: [mainKnockouts, midKnockouts] = optEnvelope(model, 'EX_ac_e', 'timeLimit', 600, 'protectedRxns', {'H2Ot_f','H2Ot_b'}, 'midPoints', 15);
 %

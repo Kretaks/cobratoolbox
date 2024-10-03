@@ -17,6 +17,8 @@ function [knockouts] = milpOEReinserts(model, data, K, toDel, minP, numKO, timeL
 %
 % OUTPUT
 %   knockouts   List of reactions that when removed gives optimal envelope
+%
+% Author(s): Kristaps Berzins
 
 if nargin < 7
     timeLimit = inf;
