@@ -2,26 +2,26 @@ function [data]=minActiveRxns(model, matchRev, K, minP, toDel, timeLimit, midPoi
 % minActiveRxns determines the minimum reactions needed to be active at
 % a specific point
 %
-%INPUT
-%  model         COBRA model structure 
-%  matchRev      Matching of forward and backward reactions of a reversible
-%                reaction
-%  K             List of reactions that cannot be selected for knockout
-%  minP          Structure that contains information about biomass and product
-%  toDel         Variable that shows what to delete
-%                0: reactions
-%                1: genes
-%                2: enzymes
-%  timeLimit     Time limit for gurobi optimization
-%  midPoints     Number of mid points to calculate active reactions for (default: 0)
-%  printLevel    Print level for gurobi optimization (default: 0)
+% INPUT
+%   model         COBRA model structure 
+%   matchRev      Matching of forward and backward reactions of a reversible
+%                 reaction
+%   K             List of reactions that cannot be selected for knockout
+%   minP          Structure that contains information about biomass and product
+%   toDel         Variable that shows what to delete:
+%                   0: reactions
+%                   1: genes
+%                   2: enzymes
+%   timeLimit     Time limit for gurobi optimization
+%   midPoints     Number of mid points to calculate active reactions for (default: 0)
+%   printLevel    Print level for gurobi optimization (default: 0)
 %
-%OUTPUT
-%  ActiveRxns    List of minimum active reactions at a specific point
+% OUTPUT
+%   ActiveRxns    List of minimum active reactions at a specific point
 %
-%  created by    Ehsan Motamedian        09/02/2022
-%  modified by   Kristaps Berzins        31/10/2022
-%  modified by   Kristaps Berzins        30/10/2024     Added calculation of active reactions for middle points
+%   created by    Ehsan Motamedian        09/02/2022
+%   modified by   Kristaps Berzins        31/10/2022
+%   modified by   Kristaps Berzins        30/10/2024     Added calculation of active reactions for middle points
 
 if nargin < 5
     toDel = 0;

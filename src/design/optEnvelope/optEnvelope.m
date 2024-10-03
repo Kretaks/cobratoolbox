@@ -5,11 +5,11 @@ function [main, mid] = optEnvelope(model, desiredProduct, varargin)
 % Algorith provides multiple ways to reinsert reactions - sequential,
 % MILP, GA(under construction)
 %
-%   EXAMPLE: [knockouts, midKnockouts] = optEnvelope(model, 'EX_ac_e', 'timeLimit', 600, 'protectedRxns', {'H2Ot_f','H2Ot_b'}, 'midPoints', 15);
+%   EXAMPLE: [mainKnockouts, midKnockouts] = optEnvelope(model, 'EX_ac_e', 'timeLimit', 600, 'protectedRxns', {'H2Ot_f','H2Ot_b'}, 'midPoints', 15);
 %
 % INPUT
 %  model              COBRA model structure
-%  desiredProduct     Reaction ID of desired product
+%  desiredProduct     Reaction name of desired product
 %
 %  protectedRxns      (opt) Aditional reactions to ignore (must be in irreversible form) (default: {})
 %  numTries           (opt) Number of iteration for finding best possible set of deletions (default: [])
@@ -24,9 +24,10 @@ function [main, mid] = optEnvelope(model, desiredProduct, varargin)
 %  GAon               (unfinished function)
 %
 % OUTPUT
-%  knockouts          List of which reactions to remove for the optimal
-%                     envelope
-%  midKnockoutsTable  Table of reactions to remove for midpoint envelopes
+%  main               Structure that contains information about reactions to remove for optimal envelope
+%                     Information about most probable point
+%  mid                Structure that contains information about reactions to remove for midpoint envelopes
+%                     Information about most probable points for midpoint envelopes
 %
 % NOTES
 %  It should be mentioned that a figure (desired product versus biomass)
@@ -170,8 +171,10 @@ minP.proMax = sTemp.f;
 %% 2. Reduce the number of knockouts to minimum possible and calculate midEnvelopes
 
 warning off
-if isempty(numKO)
+if isempty(numKO) && ~GAon
     [knockouts, midKnockouts] = sequentialOEReinserts(model, data, K, toDel, minP, midPoints, numTries, timeLimit);
+elseif GAon
+    [knockouts, midKnockouts] = gaOEReinserts(model, data, K, toDel, numKO, minP, midPoints, numTries, timeLimit);
 else
     [knockouts] = milpOEReinserts(model, data, K, toDel, minP, numKO, timeLimit, printLevel);
 end

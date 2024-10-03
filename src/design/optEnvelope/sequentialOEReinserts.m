@@ -1,5 +1,8 @@
 function [mainKnockouts, finalMidKnockouts] = sequentialOEReinserts(modelOld, data, K, toDel, minP, midPoints, numTries, timeLimit)
-% Calculates knockouts from set of inactive reactions. Uses sequential method.
+% This function is going through inactive reactions sequentially and
+% reinserting them one by one to get best possible set of knockouts for
+% optimal envelope. With numTries parameter this can be done multiple times
+% by randomizing list of inactive reactions
 
 switch toDel
     case 0  %Reactions
